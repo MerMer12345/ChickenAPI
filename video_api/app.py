@@ -16,7 +16,6 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 @app.get("/videos")
 def list_videos():
-    """Lists available video files."""
     if not os.path.exists(VIDEO_DIR):
         return {"error": "Video directory not found"}
     files = os.listdir(VIDEO_DIR)
@@ -25,7 +24,6 @@ def list_videos():
 
 @app.get("/videos/{filename}")
 def download_video(filename: str):
-    """Serves a single video file for download."""
     file_path = os.path.join(VIDEO_DIR, filename)
     if os.path.exists(file_path):
         return FileResponse(file_path, filename=filename)
@@ -34,7 +32,6 @@ def download_video(filename: str):
 
 @app.get("/videos/download_all")
 def download_all_videos():
-    """Creates and serves a ZIP file containing all videos."""
 
     # Ensure video directory exists
     if not os.path.exists(VIDEO_DIR):
